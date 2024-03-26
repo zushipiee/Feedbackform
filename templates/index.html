@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Feedback Form</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="video-container">
+            <video autoplay muted loop id="video-bg">
+                <source src="{{ url_for('static', filename='videos/project2.mp4') }}" type="video/mp4">
+            </video>
+
+            <script>
+                // Get the video element
+                var video = document.getElementById("video-bg");
+        
+                // Set playback speed to 0.5x
+                video.playbackRate = 0.5;
+            </script>
+
+            <div class="container">
+                <h1>Feedback Form</h1>
+                <form action = "/submit_feedback" method="post">
+                    <label for = "name">Name:</label><br>
+                    <input type = "text" id = "name" name = "name" required><br><br>
+                
+                    <label for = "gender">Gender:</label><br>
+                    <select id = "gender" name = "gender" required>
+                        <option>Male</option>
+                        <option>Female</option>
+                    </select><br><br>
+
+                    <label for ="email">Email:</label><br>
+                    <input type ="email" id ="email" name ="email" required><br><br>
+                
+                    <label for ="comments">Comments:</label><br>
+                    <textarea id ="comments" name = "comments" rows = "4" required></textarea><br><br>
+                
+                    <label>Rating:</label><br>
+                    <div class="rating">
+                        <label for="star5">&#9733;</label>
+                        <input type="radio" id="star5" name="rating" value="5">
+
+                        <label for="star4">&#9733;</label>
+                        <input type="radio" id="star4" name="rating" value="4">
+
+                        <label for="star3">&#9733;</label>
+                        <input type="radio" id="star3" name="rating" value="3">
+
+                        <label for="star2">&#9733;</label>
+                        <input type="radio" id="star2" name="rating" value="2">
+
+                        <label for="star1">&#9733;</label>
+                        <input type="radio" id="star1" name="rating" value="1">
+                    </div><br><br>
+
+                    <input type = "submit" value = "Submit">
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

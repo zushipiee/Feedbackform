@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Feedback Submitted</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    </head>
+    <body>
+        <div class="video-container">
+            <video autoplay muted loop id="video-bg">
+                <source src="{{ url_for('static', filename='videos/project2.mp4') }}" type="video/mp4">
+            </video>
+
+            <script>
+                // Get the video element
+                var video = document.getElementById("video-bg");
+        
+                // Set playback speed to 0.5x
+                video.playbackRate = 0.5;
+            </script>
+            
+            <div class="container">
+            <h2>Thank you for your feedback!</h2>
+            <p>We appreciate your time.</p>
+            </div>
+        </div>
+    </body>
+</html>
