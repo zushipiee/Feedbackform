@@ -1,6 +1,8 @@
 body {
     font-family: Arial, sans-serif;
     background-color: ;
+    margin: 0; /* Remove default margin */
+    padding: 0; /* Remove default padding */
 }
 
 .video-container {
@@ -23,8 +25,11 @@ body {
 
 .container {
     position: fixed;
-    top: 25%;
+    top: 50%;
+    left: 25%;
+    transform: translate(-50%, -50%);
     width: 50%;
+    max-width: 600px;
     margin: 0 auto;
     padding: 20px;
     background-color: #fff;
@@ -79,19 +84,29 @@ h1 {
     animation-iteration-count: 5; /* Define how many times the animation will be repeated */
 }
 
+.rating {
+    unicode-bidi: bidi-override;
+    direction: rtl;
+    text-align: center;
+}
+
 .rating input {
     display: none;
 }
 
 .rating label {
-    font-size: 30px;
-    color: #ccc;
+    display: inline-block;
+    padding: 5px;
+    font-size: 25px;
+    color: #ffffff;
     cursor: pointer;
+    text-shadow: 0 0 1px black;
 }
 
 .rating label:hover,
+.rating label:hover ~ label,
 .rating input:checked ~ label {
-    color: #ffa500;
+    color: #FFC107;
 }
 
 p {
