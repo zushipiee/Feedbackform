@@ -23,11 +23,11 @@
                 <h1>Admin Login</h1>
                 <form action="/admin_login" method="post">
                     <i class="fa fa-user-circle"></i>
-                    <label for="username">Username:</label><br>
+                    <label for="username">Username:</label><br> <!-- username is admin01 -->
                     <input type="text" id="username" name="username" required><br><br>
 
                     <i class="fa fa-lock"></i>
-                    <label for="password">Password:</label><br>
+                    <label for="password">Password:</label><br> <!-- password is abc123 -->
                     <input type="password" id="password" name="password" required><br><br>
                     {% with messages = get_flashed_messages() %}
                     {% if messages %}
