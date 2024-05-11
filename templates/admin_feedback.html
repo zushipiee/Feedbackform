@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Feedback</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <style>
+
+        </style>
+    </head>
+    <body>
+        <div class="video-container">
+            <video autoplay muted loop id="video-bg">
+                <source src="{{ url_for('static', filename='videos/project2.mp4') }}" type="video/mp4">
+            </video>
+
+            <script>
+                // Get the video element
+                var video = document.getElementById("video-bg");
+        
+                // Set playback speed to 0.5x
+                video.playbackRate = 0.5;
+            </script>
+
+            <div class="container">
+                <h1>Feedback</h1>
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Gender</th>
+                            <th>Email</th>
+                            <th>Comments</th>
+                            <th>Rating</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for feedback in feedback_data %}
+                            <tr>
+                                <td>{{ feedback['Name'] }}</td>
+                                <td>{{ feedback['Gender'] }}</td>
+                                <td>{{ feedback['Email'] }}</td>
+                                <td>{{ feedback['Comments'] }}</td>
+                                <td>{{ feedback['Rating'] }}</td>
+                            </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </body>
+</html>
