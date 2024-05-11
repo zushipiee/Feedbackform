@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Admin Login</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    </head>
+    <body>
+        <div class="video-container">
+            <video autoplay muted loop id="video-bg">
+                <source src="{{ url_for('static', filename='videos/project2.mp4') }}" type="video/mp4">
+            </video>
+
+            <script>
+                // Get the video element
+                var video = document.getElementById("video-bg");
+        
+                // Set playback speed to 0.5x
+                video.playbackRate = 0.5;
+            </script>
+
+            <div class="container">
+                <h1>Admin Login</h1>
+                <form action="/admin_login" method="post">
+                    <i class="fa fa-user-circle"></i>
+                    <label for="username">Username:</label><br>
+                    <input type="text" id="username" name="username" required><br><br>
+
+                    <i class="fa fa-lock"></i>
+                    <label for="password">Password:</label><br>
+                    <input type="password" id="password" name="password" required><br><br>
+                    {% with messages = get_flashed_messages() %}
+                    {% if messages %}
+                        <div class="alert alert-danger">
+                            <i class="fa fa-exclamation-circle"></i>
+                            {% for message in messages %}
+                                {{ message }}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+                    {% endwith %}
+                    <input type="submit" value="Login">
+                </form>
+            </div>
+        </div>
+        
+    </body>
+</html>
