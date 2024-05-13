@@ -12,7 +12,7 @@ responce_file_path = os.path.join(base_dir, 'static', 'feedback.csv')
 key = Fernet.generate_key()
 
 ##Write Key into key.key
-with open('static/key.key', 'wb') as key_file:
+with open(key_file_path, 'wb') as key_file:
     key_file.write(key)
 
 ##Check Encryted data is valid/invalid
