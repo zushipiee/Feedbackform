@@ -27,10 +27,12 @@ def is_valid_fernet_token(token, cipher_suite):
 app = Flask(__name__)
 app.secret_key = 'abcdefgabcdabcdabcd'
 
+##HomePage
 @app.route('/')
 def index():
     return render_template('index.html')
 
+##Process feedback and store to file
 @app.route('/submit_feedback', methods=['POST'])
 def submit_feedback():
     name = request.form['name']
@@ -50,13 +52,6 @@ def submit_feedback():
     comments = f.encrypt(comments.encode('utf-8')).decode()
     rating = f.encrypt(rating.encode('utf-8')).decode()
 
-    print(name)
-    print(f.decrypt(name).decode('utf-8'))
-    print(f.decrypt(gender).decode('utf-8'))
-    print(f.decrypt(email).decode('utf-8'))
-    print(f.decrypt(comments).decode('utf-8'))
-    print(f.decrypt(rating).decode('utf-8'))
-
     with open(responce_file_path, 'a', newline='') as csvfile:
         fieldnames = ['Name', 'Gender', 'Email', 'Comments', 'Rating']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
@@ -64,6 +59,7 @@ def submit_feedback():
 
     return render_template('success.html')
 
+##Admin Login
 @app.route('/admin_login', methods=['GET', 'POST'])
 def admin_login():
     if request.method == 'POST':
@@ -76,6 +72,7 @@ def admin_login():
             flash('Invalid username or password', 'error')
     return render_template('admin_login.html')
 
+##Retrive Feedback
 @app.route('/admin_feedback')
 def admin_feedback():
     if not session.get('admin_logged_in'):
@@ -112,5 +109,6 @@ def admin_feedback():
 
     return render_template('admin_feedback.html', feedback_data=feedback_data)
 
+##Run Program
 if __name__ == '__main__':
     app.run(host = '0.0.0.0', port = 80, debug = False)
