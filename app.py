@@ -1,11 +1,21 @@
 from flask import *
 from cryptography.fernet import Fernet
 import csv
+import os
 
+##File Path
+base_dir = os.path.abspath(os.path.dirname(__file__))
+key_file_path = os.path.join(base_dir, 'static', 'key.key')
+responce_file_path = os.path.join(base_dir, 'static', 'feedback.csv')
+
+##Generate Key
 key = Fernet.generate_key()
+
+##Write Key into key.key
 with open('static/key.key', 'wb') as key_file:
     key_file.write(key)
 
+##Check Encryted data is valid/invalid
 def is_valid_fernet_token(token, cipher_suite):
     try:
         cipher_suite.decrypt(token.encode())
@@ -13,9 +23,9 @@ def is_valid_fernet_token(token, cipher_suite):
     except:
         return False
 
+##Flask Server
 app = Flask(__name__)
 app.secret_key = 'abcdefgabcdabcdabcd'
-
 
 @app.route('/')
 def index():
@@ -29,7 +39,7 @@ def submit_feedback():
     comments = request.form['comments']
     rating = request.form['rating']
 
-    with open('static/key.key', 'rb') as key_file:
+    with open(key_file_path) as key_file:
         key = key_file.read()
 
     f = Fernet(key)
@@ -47,7 +57,7 @@ def submit_feedback():
     print(f.decrypt(comments).decode('utf-8'))
     print(f.decrypt(rating).decode('utf-8'))
 
-    with open('static/feedback.csv', 'a', newline='') as csvfile:
+    with open(responce_file_path, 'a', newline='') as csvfile:
         fieldnames = ['Name', 'Gender', 'Email', 'Comments', 'Rating']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writerow({'Name': name, 'Gender': gender, 'Email': email, 'Comments': comments, 'Rating':rating})
@@ -72,13 +82,13 @@ def admin_feedback():
         return redirect(url_for('admin_login'))
 
     # Load the key
-    with open('static/key.key', 'rb') as key_file:
+    with open(key_file_path, 'rb') as key_file:
         key = key_file.read()
 
     f = Fernet(key)
     # Read feedback data from CSV file
     feedback_data = []
-    with open('static/feedback.csv', 'r') as csvfile:
+    with open(responce_file_path, 'r') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
             # Assuming the order of columns is: Name, Gender, Email, Comments, Rating
