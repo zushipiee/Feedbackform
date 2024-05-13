@@ -3,7 +3,7 @@ from cryptography.fernet import Fernet
 import csv
 
 key = Fernet.generate_key()
-with open('key.key', 'wb') as key_file:
+with open('static/key.key', 'wb') as key_file:
     key_file.write(key)
 
 def is_valid_fernet_token(token, cipher_suite):
@@ -29,7 +29,7 @@ def submit_feedback():
     comments = request.form['comments']
     rating = request.form['rating']
 
-    with open('key.key', 'rb') as key_file:
+    with open('static/key.key', 'rb') as key_file:
         key = key_file.read()
 
     f = Fernet(key)
@@ -47,7 +47,7 @@ def submit_feedback():
     print(f.decrypt(comments).decode('utf-8'))
     print(f.decrypt(rating).decode('utf-8'))
 
-    with open('feedback.csv', 'a', newline='') as csvfile:
+    with open('static/feedback.csv', 'a', newline='') as csvfile:
         fieldnames = ['Name', 'Gender', 'Email', 'Comments', 'Rating']
         writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
         writer.writerow({'Name': name, 'Gender': gender, 'Email': email, 'Comments': comments, 'Rating':rating})
@@ -72,13 +72,13 @@ def admin_feedback():
         return redirect(url_for('admin_login'))
 
     # Load the key
-    with open('key.key', 'rb') as key_file:
+    with open('static/key.key', 'rb') as key_file:
         key = key_file.read()
 
     f = Fernet(key)
     # Read feedback data from CSV file
     feedback_data = []
-    with open('feedback.csv', 'r') as csvfile:
+    with open('static/feedback.csv', 'r') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
             # Assuming the order of columns is: Name, Gender, Email, Comments, Rating
