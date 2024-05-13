@@ -116,11 +116,23 @@ p {
     color: darkgray;
 }
 
-.admin-login{
-    display: block; /* Ensure link takes up full width */
-    text-align: center; /* Center the text */
-    margin: 0 auto; /* Center horizontally */
-    width: fit-content; /* Adjust width to fit content */
+.admin-login {
+    display: inline-block; /* Make the link behave as a block-level element */
+    padding: 10px 20px; /* Add padding to the button */
+    background-color: #3eab42; /* Set background color */
+    color: #ffffff; /* Set text color */
+    border: 1px solid #3eab42; /* Add border */
+    border-radius: 5px; /* Add border radius for rounded corners */
+    text-decoration: none; /* Remove default underline from link */
+    font-weight: bold; /* Set font weight to bold */
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.admin-login:hover {
+    background-color: #243f26; /* Change background color on hover */
+    border-color: #243f26; /* Change border color on hover */
 }
 
 table {
